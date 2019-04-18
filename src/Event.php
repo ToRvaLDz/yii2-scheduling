@@ -304,6 +304,19 @@ class Event extends Component
     {
         return $this->spliceIntoPosition(5, '1-5');
     }
+    
+    /**
+    * Schedule the event to run only on weekdays at a given time
+    * @param  string $time
+    * @return $this
+    */
+    public function weekdaysAt($time)
+    {
+        $segments = explode(':', $time);
+        return $this->spliceIntoPosition(5, '1-5')
+                ->spliceIntoPosition(2, (int)$segments[0])
+                ->spliceIntoPosition(1, count($segments) == 2 ? (int)$segments[1] : '0');
+    }
 
     /**
      * Schedule the event to run only on Mondays.
